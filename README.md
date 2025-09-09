@@ -25,8 +25,10 @@ NOTE: This is provided for educational purposes only. Please support genuine.
 ```bash
 # opm install 
 # opm get anjia0532/lua-rebel-license-server
+
 # or luarocks install
-# luarocks install lua-rebel-license-server
+# luarocks config lua_modules_path "" && luarocks install --tree /usr/local/openresty/site/lualib/  lua-rebel-license-server
+
 # or wget install
 wget -P /path/to/lualib/resty/ https://raw.githubusercontent.com/spacewander/lua-resty-rsa/refs/heads/master/lib/resty/rsa.lua
 wget -P /path/to/lualib/resty/ https://raw.githubusercontent.com/anjia0532/lua-rebel-license-server/master/lib/resty/jrebel-license.lua
@@ -36,26 +38,32 @@ wget -P /path/to/lualib/resty/ https://raw.githubusercontent.com/anjia0532/lua-r
 ```nginx
   -- nginx.conf
 
-  lua_package_path "/path/to/lualib/?.lua;;"; -- include resty/rsa.lua resty/jrebel-license.lua
+  lua_package_path "/usr/local/openresty/site/lualib/?.lua;;"; -- include resty/rsa.lua resty/jrebel-license.lua
 
   server {
     location = / {
       content_by_lua_block{
         local cjson = require 'cjson'
-        local jrebel = require 'jrebel-license.lua'
+        local jrebel = require 'resty.jrebel-license.lua'
         ngx.print(jrebel.handler())
       }
     }
   }
 ```
 
+```bash
+docker run -d -p80:80 --name openresty  --rm -v $(pwd)/docker/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf  openresty/openresty:alpine-fat
+docker exec openresty opm get anjia0532/lua-rebel-license-server
+docker exec openresty openresty -s reload
+```
+
 JRebel 7.1 and earlier version Activation address was: $scheme://$host[:$port]/{tokenname}, with any email.
 
-> JRebel 7.1 以及更早的版本激活地址 $scheme://$host[:$port]/{tokenname} 以及任意的email地址(可以是不存在的)
+> JRebel 7.1 以及更早的版本激活地址 `$scheme://$host[:$port]/{tokenname}` 以及任意的email地址(可以是不存在的)
 
-JRebel 2018.1 and later version Activation address was: $scheme://$host[:$port]/{guid}(eg:$scheme://$host[:$port]/dd5f6ce0-8ed9-11e8-9eb6-529269fb1459), with any email.
+JRebel 2018.1 and later version Activation address was: `$scheme://$host[:$port]/{guid}` (eg: `$scheme://$host[:$port]/dd5f6ce0-8ed9-11e8-9eb6-529269fb1459` ), with any email.
 
-> JRebel 2018.1 以及更高版本激活地址 $scheme://$host[:$port]/{guid} 例如 http://8.8.8.8/dd5f6ce0-8ed9-11e8-9eb6-529269fb1459 以及任意的email地址 （uuid在线生成 https://www.uuidgenerator.net/）
+> JRebel 2018.1 以及更高版本激活地址 `$scheme://$host[:$port]/{guid}` 例如 `http://8.8.8.8/dd5f6ce0-8ed9-11e8-9eb6-529269fb1459` 以及任意的email地址 （uuid在线生成 https://www.uuidgenerator.net/）
 
 ## 支持产品(Support)
 
