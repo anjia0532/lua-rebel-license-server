@@ -65,9 +65,13 @@ JRebel 2018.1 and later version Activation address was: $scheme://$host[:$port]/
 
 ## 注意事项(Note)
 
-This is provided for educational purposes only. Please support genuine.
+Thanks for [ilanyu](http://blog.lanyus.com) and [gsls200808](https://gitee.com/gsls200808) and [yu-xiaoyao](https://github.com/yu-xiaoyao)
 
-> 非常感谢 [ilanyu](http://blog.lanyus.com) 和 [gsls200808](https://gitee.com/gsls200808) (本项目逻辑部分全部移植自https://gitee.com/gsls200808/JrebelLicenseServerforJava ,本项目只做了java to lua工作)
+NOTE: This is provided for educational purposes only. Please support genuine.
+
+> 非常感谢 [ilanyu](http://blog.lanyus.com) 和 [gsls200808](https://gitee.com/gsls200808) (本项目逻辑部分全部移植自https://gitee.com/gsls200808/JrebelLicenseServerforJava ,本项目只做了java to lua工作) 和 [yu-xiaoyao/jrebel-license-active-server](https://github.com/yu-xiaoyao/jrebel-license-active-server)
+
+> 注意： 本项目仅适用于教育用途，请支持正版
 
 ## 反馈(Feedback)
 
